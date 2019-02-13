@@ -23,20 +23,8 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/home')
-    def home():
-        return render_template('home.html')
-
-    @app.route('/about')
-    def about():
-        return render_template('about.html')
-
-    @app.route('/products')
-    def products():
-        return render_template('products.html')
-
-    @app.route('/create_product')
-    def create_product():
-        return render_template('create_product.html')
+    from . import product
+    app.register_blueprint(product.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
